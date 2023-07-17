@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "ADMIN_SECRET": "MqmI2wonQkfwO6I5WxAcirmouACmysf7OXwLxqwGdP35d7B0K4EEbJk5ujlJ4iE2",
+    "HGE_ENDPOINT": "https://thanks-tree.hasura.app/v1/graphql",
+    "JWT_KEY": "ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4OTMyOTY4OSw",
+    "SALT": "B9$47c55883AB810$D149890d_1&"
+  }
+}
