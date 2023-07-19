@@ -1,4 +1,4 @@
-const md5 = require('md5');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const appleSignIn = require('apple-signin-auth');
 const sendHasuraRequest = require('../utils/sendHasuraRequest');
@@ -30,7 +30,7 @@ module.exports = async function (context) {
         else {
 
             const password = crypto.randomBytes(Math.ceil(64 / 2)).toString('hex').slice(0, 64);
-            const hashPassword = md5(password + process.env.SALT);
+            const hashPassword = bcrypt.hash(password);
 
             const upsertUser = `mutation UpsertUser($object: users_insert_input!) {
                 insert_users_one(object: $object, on_conflict: {constraint: users_email_key, update_columns: [email, lang, is_authorized, fcm_token, refresh_key]}) {

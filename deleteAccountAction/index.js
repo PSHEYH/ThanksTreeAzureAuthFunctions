@@ -8,10 +8,6 @@ const handler = require('./handler');
 module.exports = new MiddlewareHandler()
     .use(checkSecret)
     .use(checkBody)
-    .use((context) => {
-        const props = ['refresh_token'];
-        checkBodyProperties(context, props);
-    })
     .use(handler)
     .catch(catchError)
     .listen();

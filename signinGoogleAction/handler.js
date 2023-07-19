@@ -1,9 +1,21 @@
-const md5 = require('md5');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const axios = require('axios');
 const sendHasuraRequest = require('../utils/sendHasuraRequest');
 const generateToken = require('../utils/generateToken');
 const generateRefreshToken = require('../utils/generateRefreshToken');
+
+function hashAsync(password, salt) {
+    return new Promise(function(resolve, reject) {
+        bcrypt.hash(password, salt, function(err, res) {
+            if (err) {
+                 reject(err);
+            } else {
+                 resolve(res);
+            }
+        });
+    });
+}
 
 module.exports = async function (context) {
 
@@ -41,7 +53,7 @@ module.exports = async function (context) {
           }`;
 
         const password = crypto.randomBytes(Math.ceil(64 / 2)).toString('hex').slice(0, 64);
-        const hashPassword = md5(password + process.env.SALT);
+        const hashPassword = await hashAsync(password, 10);
 
         const refreshKey = crypto.randomBytes(Math.ceil(64 / 2)).toString('hex').slice(0, 64);
 
@@ -86,7 +98,7 @@ module.exports = async function (context) {
         return context.done();
 
     } catch (e) {
-
+        console.log(e);
         const errorJson = {
             message: "Data google wrong",
             code: "400"
