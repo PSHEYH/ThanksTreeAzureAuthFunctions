@@ -16,8 +16,6 @@ module.exports = catchAsync(async function (context) {
     };
 
     const json = await sendHasuraRequest(deleteAccount, variables, context);
-
-    console.log(json);
     if (json.data.delete_users.affected_rows == 0) {
         const errorJson = {
             message: "User not found",
